@@ -1,10 +1,8 @@
-const pick = document.getElementById("pick");
-const result = document.getElementById("result");
+const pickNumberBtn = document.getElementById("pickNumberBtn");
+const resultBtn = document.getElementById("result");
 const lotterySheetContainer = document.getElementById("lotterySheetContainer");
-const pickedBox = document.getElementById("pickedBox");
-
 const tick = new Audio("tap.wav");
-const game = new Audio("Gamecompleted.wav");
+const win = new Audio("win.wav");
 
 const gifts = [
   "Wireless Earbuds",
@@ -14,7 +12,7 @@ const gifts = [
   "Notebook Set",
   "Candle Set",
   "USB Flash Drive",
-  "Reusable Water Bottle",
+  "Copper Bottle",
   "Portable Charger",
   "Perfume",
   "Phone Stand",
@@ -23,7 +21,7 @@ const gifts = [
   "Mini Projector",
   "Keychain",
   "Desk Organizer",
-  "Digital Alarm Clock",
+  "Alarm Clock",
   "Yoga Mat",
   "Hand Cream Set",
   "Smartwatch",
@@ -32,8 +30,8 @@ const gifts = [
   "Wireless Mouse",
   "Bluetooth Tracker",
   "Art Supplies",
-  "Cooking Utensil Set",
-  "Personalized Calendar",
+  "Cooking Utensil",
+  "Calendar",
   "Chocolate Box",
   "Backpack",
   "Face Mask Set",
@@ -44,11 +42,11 @@ const gifts = [
   "Travel Pillow",
   "Journal",
   "Phone Tripod",
-  "Essential Oil Diffuser",
+  "Essential Oil",
   "Mini Blender",
   "Action Camera",
   "Socks Gift Box",
-  "Personalized Keyring",
+  "Keyring",
   "Flashlight",
   "Desk Lamp",
   "Indoor Plant",
@@ -59,51 +57,57 @@ const gifts = [
   "Subscription Box",
 ];
 
-const boxElements = [];
+console.log(gifts);
 
-gifts.forEach((gift, i) => {
-  const div = document.createElement("div");
-  div.className = "box";
-  div.textContent = `${i + 1}. ${gift}`;
-  lotterySheetContainer.appendChild(div);
-  boxElements.push(div);
-});
-
-let previousHighlightedBox = null;
-let flashInterval;
-
-pick.addEventListener("click", () => {
-  pickedBox.textContent = "Please wait...";
-  result.textContent = "";
-
-  if (previousHighlightedBox) {
-    previousHighlightedBox.classList.remove("highlight");
+pickNumberBtn.addEventListener("click", function () {
+  for (let i = 1; i < 50; i++) {
+    document.getElementById(i).classList.remove("winningBox");
   }
+  resultBtn.textContent = "Please wait...";
+  // setTimeout(function () {
+  //   let randomNum = Math.random() * gifts.length;
+  //   let drawnNumber = Math.floor(randomNum) + 1;
+  //   const gift = gifts[drawnNumber - 1];
+  //   resultBtn.textContent = `You have got ${drawnNumber}, and you won ${gift}`;
+  //   document.getElementById(drawnNumber).classList.add("winningBox");
+  // }, 5000);
 
-  boxElements.forEach((box) => box.classList.remove("flashing-border"));
-
-  flashInterval = setInterval(() => {
-    boxElements.forEach((box) => box.classList.remove("flashing-border"));
+  let secoundsCount = 0;
+  const intervalId = setInterval(function () {
     tick.pause();
     tick.currentTime = 0;
     tick.play();
-    const randomIndex = Math.floor(Math.random() * gifts.length);
-    boxElements[randomIndex].classList.add("flashing-border");
+    secoundsCount = secoundsCount + 1;
+    const randomBox = Math.floor(Math.random() * 50) + 1;
+    console.log(randomBox);
+    for (let i = 1; i <= 50; i++) {
+      if (i === randomBox) {
+        document.getElementById(i).classList.add("highlightedBox");
+      } else {
+        document.getElementById(i).classList.remove("highlightedBox");
+      }
+    }
+
+    if (secoundsCount === 5) {
+      let randomNum = Math.random() * 50;
+      let drawnNumber = Math.floor(randomNum) + 1;
+      const gift = gifts[drawnNumber - 1];
+      resultBtn.textContent = `You have got ${drawnNumber}, and you won ${gift}`;
+      document.getElementById(randomBox).classList.remove("highlightedBox");
+      document.getElementById(drawnNumber).classList.add("winningBox");
+      win.pause();
+      win.currentTime = 0;
+      win.play();
+      clearInterval(intervalId);
+    }
   }, 1000);
-
-  setTimeout(() => {
-    clearInterval(flashInterval);
-    boxElements.forEach((box) => box.classList.remove("flashing-border"));
-    const drawnNumber = Math.floor(Math.random() * gifts.length) + 1;
-    const gift = gifts[drawnNumber - 1];
-    game.pause();
-    game.currentTime = 0;
-    game.play();
-    pickedBox.textContent = `#${drawnNumber} - ${gift}`;
-    result.textContent = `You got number ${drawnNumber} and won "${gift}"!`;
-
-    const selectedBox = boxElements[drawnNumber - 1];
-    selectedBox.classList.add("highlight");
-    previousHighlightedBox = selectedBox;
-  }, 5000);
 });
+
+if (lotterySheetContainer) {
+  gifts.forEach(function (value, i) {
+    const boxElement = `<div class="box" id=${i + 1}> ${
+      i + 1
+    }. ${value} </div>`;
+    lotterySheetContainer.insertAdjacentHTML("beforeend", boxElement);
+  });
+}
