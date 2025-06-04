@@ -2,6 +2,7 @@ const pick = document.getElementById("pick");
 const result = document.getElementById("result");
 const lotterySheetContainer = document.getElementById("lotterySheetContainer");
 const pickedBox = document.getElementById("pickedBox");
+
 const tick = new Audio("tap.wav");
 const game = new Audio("Gamecompleted.wav");
 
@@ -79,22 +80,17 @@ pick.addEventListener("click", () => {
     previousHighlightedBox.classList.remove("highlight");
   }
 
-  // Remove all previous flashing borders
   boxElements.forEach((box) => box.classList.remove("flashing-border"));
 
-  // Start flashing random boxes every second
   flashInterval = setInterval(() => {
-    // Clear all flashing borders
     boxElements.forEach((box) => box.classList.remove("flashing-border"));
     tick.pause();
     tick.currentTime = 0;
     tick.play();
-    // Add flashing to one random box
     const randomIndex = Math.floor(Math.random() * gifts.length);
     boxElements[randomIndex].classList.add("flashing-border");
   }, 1000);
 
-  // After 5 seconds, stop flashing and show result
   setTimeout(() => {
     clearInterval(flashInterval);
     boxElements.forEach((box) => box.classList.remove("flashing-border"));
