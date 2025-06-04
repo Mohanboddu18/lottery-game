@@ -1,6 +1,7 @@
 const pickNumberBtn = document.getElementById("pickNumberBtn");
 const resultBtn = document.getElementById("result");
 const lotterySheetContainer = document.getElementById("lotterySheetContainer");
+const pickedBox = document.getElementById("pickedBox");
 const tick = new Audio("tap.wav");
 const win = new Audio("win.wav");
 
@@ -64,6 +65,7 @@ pickNumberBtn.addEventListener("click", function () {
     document.getElementById(i).classList.remove("winningBox");
   }
   resultBtn.textContent = "Please wait...";
+  pickedBox.textContent = "Please wait...";
   // setTimeout(function () {
   //   let randomNum = Math.random() * gifts.length;
   //   let drawnNumber = Math.floor(randomNum) + 1;
@@ -95,6 +97,8 @@ pickNumberBtn.addEventListener("click", function () {
       resultBtn.textContent = `You have got ${drawnNumber}, and you won ${gift}`;
       document.getElementById(randomBox).classList.remove("highlightedBox");
       document.getElementById(drawnNumber).classList.add("winningBox");
+      pickedBox.textContent = `#${drawnNumber} - ${gift}`;
+      result.textContent = `You got number ${drawnNumber} and won "${gift}"!`;
       win.pause();
       win.currentTime = 0;
       win.play();
