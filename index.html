@@ -10,10 +10,16 @@
         width: 180vh;
         margin: auto;
     }
-    h1{
-        color: black;
-        font-weight: bolder;
+    .name {
+        color: white;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-style: italic;
+        text-shadow: 2px 2px 4px black;
+        padding-left: 10px;
         text-align: center;
+    }
+    .hah {
+        color: red;
     }
     .lottery-container{
         display: flex;
@@ -73,19 +79,23 @@
     .highlightedBox{
         border: 2px solid rgb(255, 69, 18);
     }
-      
+   
 </style>
 
 <body>
-    <h1>Lottery Game</h1>
+    <h1 class="name">
+        <span class="hah">L</span>ottery <span class="hah">G</span>ame
+    </h1>
         <div class="lottery-container">
             <div class="lottery-sheet-container" id="lotterySheetContainer">
                 <!-- <div class="box highlightedBox">1. Notebook</div>  -->
                 <!-- <div class="box">2. Pen Set</div> -->      
             </div>
             <div id="pickedBox" class="box winningBox"></div>
-            <h2 id="result"></h2>
-            <button id="pickNumberBtn">Pick a Number</button>
+            <div class="space">
+                <h2 id="result"></h2>  
+            </div>
+                <button id="pickNumberBtn">Pick a Number</button>
     </div>
     <script src="script.js"></script>
 </body>
