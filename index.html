@@ -13,13 +13,13 @@
 
     html, body {
       height: 100%;
-      overflow: hidden; /* prevents scrolling */
+      overflow: auto; /* allow vertical scroll if needed */
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f0f0f0;
     }
 
     .app-container {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
@@ -42,12 +42,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: hidden;
       padding: 10px;
+      overflow: visible;
     }
 
     .lottery-sheet-container {
-      flex: 1;
+      flex-grow: 1;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -124,6 +124,10 @@
       #pickedBox {
         font-size: 14px;
         height: 40px;
+      }
+
+      button {
+        width: 90%;
       }
     }
   </style>
