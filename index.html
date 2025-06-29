@@ -1,102 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lottery Game</title>
-</head>
-<style>
-    body{
-        width: 180vh;
-        margin: auto;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lottery Game</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    html, body {
+      height: 100%;
+      overflow: hidden; /* prevents scrolling */
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .app-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
     .name {
-        color: white;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        font-style: italic;
-        text-shadow: 2px 2px 4px black;
-        padding-left: 10px;
-        text-align: center;
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-style: italic;
+      text-shadow: 2px 2px 4px black;
     }
+
     .hah {
-        color: red;
+      color: red;
     }
-    .lottery-container{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
+
+    .lottery-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      padding: 10px;
     }
-    button{
-        background-color: rgb(33, 214, 255);
-        color: white;
-        padding: 15px;
-        border-radius: 5px;
-        text-align: center;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 0%;
+
+    .lottery-sheet-container {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: start;
+      overflow-y: auto;
+      width: 100%;
+      max-width: 800px;
+      padding: 5px;
     }
-    button:hover{
-        background-color: rgb(6, 161, 164);
-    }
-    #pickedBox {
-      margin: 20px auto;
-      width: 300px;
+
+    .box {
+      width: 120px;
       height: 50px;
+      background-color: rgb(252, 252, 3);
+      color: black;
+      display: flex;
+      border-radius: 5px;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      margin: 5px;
+      text-align: center;
+    }
+
+    .highlightedBox {
+      border: 2px solid orange;
+    }
+
+    .winningBox {
+      background-color: rgb(245, 167, 43);
+      color: white;
+    }
+
+    #pickedBox {
+      margin: 10px auto;
+      width: 90%;
+      max-width: 300px;
+      height: 45px;
       background-color: rgb(42, 243, 42);
       display: flex;
       justify-content: center;
       align-items: center;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
+      border-radius: 8px;
     }
-    h2{
-        color: rgb(0, 0, 0);
-    }
-    .box{
-        width: 150px;
-        height: 55px;
-        background-color: rgb(252, 252, 3);
-        color: black;
-        display: flex;
-        border-radius: 5px;
-        justify-content: center;
-        align-items: center;
-        font-weight: bolder;
-        font-size: 15px;
-        margin: 7px;
-    }
-    .lottery-sheet-container{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .winningBox{
-        background-color: rgb(245, 167, 43);
-        color: white;
-    }
-    .highlightedBox{
-        border: 2px solid rgb(255, 69, 18);
-    }
-   
-</style>
 
+    button {
+      background-color: rgb(33, 214, 255);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color: rgb(6, 161, 164);
+    }
+
+    @media screen and (max-width: 768px) {
+      .box {
+        width: 45%;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .box {
+        width: 90%;
+      }
+
+      #pickedBox {
+        font-size: 14px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
 <body>
-    <h1 class="name">
-        <span class="hah">L</span>ottery <span class="hah">G</span>ame
-    </h1>
-        <div class="lottery-container">
-            <div class="lottery-sheet-container" id="lotterySheetContainer">
-                <!-- <div class="box highlightedBox">1. Notebook</div>  -->
-                <!-- <div class="box">2. Pen Set</div> -->      
-            </div>
-            <div id="pickedBox" class="box winningBox"></div>
-            <div class="space">
-                <h2 id="result"></h2>  
-            </div>
-                <button id="pickNumberBtn">Pick a Number</button>
+  <div class="app-container">
+    <h1 class="name"><span class="hah">L</span>ottery <span class="hah">G</span>ame</h1>
+    <div class="lottery-container">
+      <div class="lottery-sheet-container" id="lotterySheetContainer"></div>
+      <div id="pickedBox" class="box winningBox"></div>
+      <button id="pickNumberBtn">Pick a Number</button>
     </div>
-    <script src="script.js"></script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
